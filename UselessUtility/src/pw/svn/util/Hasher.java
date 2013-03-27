@@ -8,7 +8,6 @@ import java.security.*;
  */
 public class Hasher {
 	
-<<<<<<< HEAD
 	private String message;
 	MessageDigest digest;
 	
@@ -40,7 +39,4 @@ public class Hasher {
 	
 	
 	
-	
-=======
->>>>>>> b7696175e1c6e8e11578093058e0736c44816622
 }
