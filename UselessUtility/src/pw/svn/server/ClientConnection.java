@@ -24,9 +24,9 @@ public class ClientConnection implements Runnable {
 	private void initializeClientConnection() {
 		
 		try {
-			this.output = new ObjectOutputStream(socket.getOutputStream());
+			this.output = new ObjectOutputStream(this.socket.getOutputStream());
 			this.output.flush();
-			this.input = new ObjectInputStream(socket.getInputStream());
+			this.input = new ObjectInputStream(this.socket.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

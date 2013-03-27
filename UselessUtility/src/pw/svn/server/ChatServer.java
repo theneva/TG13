@@ -15,9 +15,11 @@ import java.util.List;
 public class ChatServer implements Runnable {
 	
 	private transient List<ClientConnection> clients;
+	private transient int port;
 
 	public ChatServer(String ip, int port) {
 		this.clients = new ArrayList<ClientConnection>();
+		this.port = port;
 		new Thread(this).start();
 	}
 
@@ -26,9 +28,9 @@ public class ChatServer implements Runnable {
 	}
 	
 	private void startServer() {
+		ServerSocket serverSocket = null;
 		try {
-
-			final ServerSocket serverSocket = new ServerSocket(8000);
+			serverSocket = new ServerSocket(this.port);
 
 			for (;;) {
 
@@ -39,6 +41,7 @@ public class ChatServer implements Runnable {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
 		}
 	}
 }
