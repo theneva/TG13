@@ -1,9 +1,9 @@
 package client;
 
-import server.ChatServer;
+import pw.svn.server.ChatServer;
 
 public class Demo {
 	public static void main(String[] args) {
-		new ChatServer();
+		new ChatServer("localhost", 8000);
 	}
 }
