@@ -5,6 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * Represents the connection between the server and each user.
+ * @author Theneva
+ * @version 1.0
+ */
 public class ClientConnection implements Runnable {
 	
 	private final Socket socket;

@@ -8,8 +8,7 @@ import java.util.List;
 
 /**
  * A useless chat server.
- * @author Martin
- * @author Waidmann
+ * @author Theneva
  * @version 1.0
  */
 public class ChatServer implements Runnable {
