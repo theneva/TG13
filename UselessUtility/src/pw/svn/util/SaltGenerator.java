@@ -1,7 +1,11 @@
 package pw.svn.util;
 
 import java.util.Random;
-
+/**
+ * 
+ * @author Waidmann
+ * @version 1.0
+ */
 public class SaltGenerator {
 
 	Random rand;
@@ -9,7 +13,10 @@ public class SaltGenerator {
 	public SaltGenerator(){
 		rand = new Random();
 	}
-	
+	/**
+	 * Creates a String containing 'random' hex values
+	 * @return a String of hex values
+	 */
 	public String getSalt(){
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < 30; i++){
