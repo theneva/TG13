@@ -1,10 +1,17 @@
 package pw.svn.client;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import pw.svn.ui.UserInterface;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A client for connecting to the chat server.
@@ -18,7 +25,7 @@ public class ChatClient {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	
-	private UserInterface ui;
+	private JFrame ui;
 	
 	public ChatClient(String serverAddress, int serverPort) {
 
@@ -27,10 +34,35 @@ public class ChatClient {
 			this.output = new ObjectOutputStream(this.serverConnection.getOutputStream());
 			this.input = new ObjectInputStream(this.serverConnection.getInputStream());
 			
-			this.ui = new UserInterface();
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.initializeUI();
+	}
+	
+	private void initializeUI() {
+
+		this.ui = new JFrame("Useless chat client");
+		
+		this.ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.ui.add(new JScrollPane(new JTextArea()));
+		
+		final JTextField textFieldMessage = new JTextField();
+
+		textFieldMessage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sendMessage(textFieldMessage.getText());
+			}
+		});
+
+		this.ui.add(textFieldMessage, BorderLayout.SOUTH);
+		
+		this.ui.setLocationRelativeTo(null);
+		this.ui.setSize(600, 400);
+		this.ui.setVisible(true);
 	}
 	
 	/**
@@ -51,11 +83,12 @@ public class ChatClient {
 	}
 	
 	public void sendMessage(String message) {
-		try {
-			this.output.writeObject(message);
-			this.output.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			this.output.writeObject(message);
+//			this.output.flush();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		System.out.println(message);
 	}
 }
