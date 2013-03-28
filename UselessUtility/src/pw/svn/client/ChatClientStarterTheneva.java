@@ -7,15 +7,7 @@ public class ChatClientStarterTheneva {
 	
 	public static void main(String[] args) {
 		
-		String language, country;
-		
-		if (args.length != 2) {
-			language = new String("en");
-			country = new String("US");
-		} else {
-			language = args[0];
-			country = args[1];
-		}
+		String language = "en", country = "US";
 		
 		Locale currentLocale = new Locale(language, country);
 		

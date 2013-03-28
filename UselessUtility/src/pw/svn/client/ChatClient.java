@@ -19,8 +19,12 @@ import javax.swing.JTextField;
  * @author Theneva
  * @version 1.0
  */
-public class ChatClient {
+public class ChatClient implements Runnable {
 
+	/** Server stuff */
+	private String serverAddress;
+	private int serverPort;
+	
 	private Socket serverConnection;
 	
 	private ObjectOutputStream output;
@@ -36,7 +40,13 @@ public class ChatClient {
 	public ChatClient(String serverAddress, int serverPort, ResourceBundle messages) {
 
 		this.messages = messages;
+		this.serverAddress = serverAddress;
+		this.serverPort = serverPort;
 		
+		new Thread(this).start();
+	}
+	
+	public void run() {
 		this.initializeUI();
 		this.startClient(serverAddress, serverPort);
 	}
