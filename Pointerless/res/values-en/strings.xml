@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Pointerless</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main_menu">Pointerless</string>
+    <string name="norwegianChoice">Norwegian</string>
+    <string name="englishChoice">English</string>
+    <string name="startChat">Start chat</string>
+    <string name="title_activity_chat">Pointerless Chat</string>
+
+</resources>

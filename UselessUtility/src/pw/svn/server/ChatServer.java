@@ -84,6 +84,7 @@ public class ChatServer implements Runnable {
 				this.output = new ObjectOutputStream(this.socket.getOutputStream());
 				this.output.flush();
 				this.input = new ObjectInputStream(this.socket.getInputStream());
+				
 			} catch (IOException e){
 				e.printStackTrace();
 			}
