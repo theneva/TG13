@@ -1,0 +1,4 @@
+hex codes
+green = 00bf00
+green top right = 40bf00
+green bot right = 008000

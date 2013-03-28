@@ -1,4 +1,4 @@
-package client;
+
 
 import pw.svn.server.ChatServer;
 
