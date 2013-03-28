@@ -13,12 +13,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 public class MainMenu extends Activity {
 	
 	private Button btnStartChat;
 	private RadioButton rbEnglishChoice, rbNorwegianChoice;
+	private EditText etIP;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,15 +45,22 @@ public class MainMenu extends Activity {
     	btnStartChat = (Button) findViewById(R.id.btnStartChat);
     	rbEnglishChoice = (RadioButton) findViewById(R.id.rbEnglishChoice);
     	rbNorwegianChoice = (RadioButton) findViewById(R.id.rbNorwegianChoice);
+    	etIP = (EditText) findViewById(R.id.etIP);
     }
     
     public void initListeners(){
     	btnStartChat.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent myIntent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(myIntent);
+				if(isInputValidIP(etIP.getText().toString())){
+					Intent intent = new Intent(getBaseContext(), ChatActivity.class);
+					intent.putExtra("IP", etIP.getText().toString());
+					startActivity(intent);
+				}
 				
+			}
+			public boolean isInputValidIP(String input){
+				return input.matches("[1-9]{1,3}\\.[1-9]{1,3}\\.[1-9]{1,3}\\.[1-9]{1,3}");
 			}
 		});
     	rbEnglishChoice.setOnClickListener(new OnClickListener() {

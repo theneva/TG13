@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,12 +39,17 @@ public class ChatActivity extends Activity {
 	private EditText etInput;
 	private LongOperation lo;
 	private ScrollView scroll;
+	private String IP;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         this.initializeUI();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            IP = extras.getString("IP");
+        }
         lo = new LongOperation();
         lo.execute("");
     }
@@ -63,7 +67,6 @@ public class ChatActivity extends Activity {
     	tvOutput = (TextView) findViewById(R.id.textArea);
     	etInput = (EditText) findViewById(R.id.etInput);
     	scroll = (ScrollView) findViewById(R.id.scroll);
-//    	tvOutput.setMovementMethod(new ScrollingMovementMethod());
     	btnSend.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
@@ -90,7 +93,7 @@ public class ChatActivity extends Activity {
 
 		@Override
 		protected Void doInBackground(String... params) {
-			this.startClient("151.216.14.38", 8000);
+			this.startClient(IP, 8000);
 			
 			return null;
 		}

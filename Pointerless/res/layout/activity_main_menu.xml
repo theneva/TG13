@@ -31,4 +31,20 @@
         android:layout_alignLeft="@+id/radioGroup1"
         android:text="@string/startChat" />
 
+
+
+    <EditText
+        android:id="@+id/etIP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnStartChat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Server IP"
+         >
+
+        <requestFocus />
+    </EditText>
+
 </RelativeLayout>

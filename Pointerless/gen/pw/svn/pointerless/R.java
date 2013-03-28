@@ -231,13 +231,14 @@ containing a value of this type.
         public static final int clip_horizontal=0x7f04000f;
         public static final int clip_vertical=0x7f04000e;
         public static final int end=0x7f040011;
+        public static final int etIP=0x7f04001a;
         public static final int etInput=0x7f040015;
         public static final int fill=0x7f04000d;
         public static final int fill_horizontal=0x7f04000b;
         public static final int fill_vertical=0x7f040009;
         public static final int horizontal=0x7f040000;
         public static final int left=0x7f040006;
-        public static final int menu_settings=0x7f04001a;
+        public static final int menu_settings=0x7f04001b;
         public static final int radioGroup1=0x7f040016;
         public static final int rbEnglishChoice=0x7f040018;
         public static final int rbNorwegianChoice=0x7f040017;
