@@ -33,7 +33,7 @@ public class MessageManipulator {
 		}
 		message = sb.toString();
 
-		return message.replace((char) 0x03, (char) 0x20).replace((char) 0x4, (char) 0x20);
+		return message;
 
 	}
 
