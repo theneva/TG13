@@ -8,27 +8,30 @@ import java.security.*;
  */
 public class Hasher {
 	
+	@SuppressWarnings("unused")
 	private String message;
-	MessageDigest digest;
+	private static MessageDigest digest;
 	
 	
-	public Hasher(String message){
-		this.message = message;
-		message += new SaltGenerator().getSalt();
+	public Hasher(){
 		
-		try {
-			digest = MessageDigest.getInstance("MD5");
-			digest.update(message.getBytes());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+		
+		
+		
 	}
 	
 	/**
 	 * Converts the bytes in the MessageDigest into hex
 	 * @return sb.toString() - the bytes in the MessageDigest in hex
 	 */
-	public String convertToHex(){
+	public static String convertToHex(String message){
+		message += new SaltGenerator().getSalt();
+		try {
+			digest = MessageDigest.getInstance("MD5");
+			digest.update(message.getBytes());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		StringBuffer sb = new StringBuffer();
 		byte[] byteData = digest.digest();
         for (int i = 0; i < byteData.length; i++) {
