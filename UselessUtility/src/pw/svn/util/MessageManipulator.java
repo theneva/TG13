@@ -3,7 +3,11 @@ package pw.svn.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-
+/**
+ * 
+ * @author Waidmann
+ *
+ */
 public class MessageManipulator {
 
 	private static MessageDigest digest;
@@ -11,10 +15,12 @@ public class MessageManipulator {
 		"._.", ">.<", "(o_o)", ":L", ":c)", ">:/", "ó.ò", ",,l,,>_>),l,," };
 	private static Random rand = new Random();
 	
-	public static void main(String[] args) {
-		System.out.println(manipulate("alo"));
-	}
 	
+	/**
+	 * A method for manipulating user input
+	 * @param message - the message to manipulate
+	 * @return a maipulated string
+	 */
 	public static String manipulate(String message) {
 		boolean done = false;
 		String tmp = message;
@@ -46,6 +52,7 @@ public class MessageManipulator {
 	
 	/**
 	 * Converts the bytes in the MessageDigest into hex
+	 * @param message - The message to hash
 	 * @return sb.toString() - the bytes in the MessageDigest in hex
 	 */
 	public static String hash(String message){
@@ -67,7 +74,10 @@ public class MessageManipulator {
         }
         return sb.toString();
 	}
-	
+	/**
+	 * A method creating a 'random' hex string
+	 * @return a 'random' hex string
+	 */
 	public static String getSalt(){
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < 30; i++){
