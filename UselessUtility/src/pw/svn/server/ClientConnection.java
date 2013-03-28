@@ -21,9 +21,9 @@ public class ClientConnection implements Runnable {
 		new Thread(this).start();
 	}
 
-	@Override
 	public void run() {
 		this.initializeClientConnection();
+		this.enterChat();
 	}
 	
 	private void initializeClientConnection() {
@@ -36,4 +36,49 @@ public class ClientConnection implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Enters the chat and keeps the connection alive.
+	 */
+	private void enterChat() {
+		// this.readMessage();
+	}
+
+	/**
+	 * Reads a message from the client.
+	 * @return the message.
+	 */
+	private String readMessage() {
+		String data = null;
+
+		try {
+			data = (String) this.input.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return data;
+	}
+
+	/**
+	 * Sends a message to the client.
+	 * @param message the message.
+	 */
+	private void sendMessage(String message) {
+		try {
+			this.output.writeObject(message);
+			this.output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Sends a message ending with a line break to the client.
+	 * @param message the message.
+	 */
+	private void sendMessageln(String message) {
+		this.sendMessage(message.concat(System.getProperty("line.separator")));
+	}
 }
+
