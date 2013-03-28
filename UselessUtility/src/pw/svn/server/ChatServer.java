@@ -105,7 +105,6 @@ public class ChatServer implements Runnable {
 				String message = this.readMessage();
 				if (message == null) {
 					this.leaveChat();
-					System.out.println("leave");
 					break;
 				}
 				else
@@ -133,7 +132,6 @@ public class ChatServer implements Runnable {
 			try {
 				data = (String) this.input.readObject();
 			} catch (IOException | ClassNotFoundException e) {
-				//this.leaveChat();
 			}
 
 			return data;
