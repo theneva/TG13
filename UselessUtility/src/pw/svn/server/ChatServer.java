@@ -29,20 +29,19 @@ public class ChatServer implements Runnable {
 	}
 	
 	private void startServer() {
-		
 		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(this.port);
-			
-			System.out.println("Server started.");
-			
+
 			for (;;) {
+
 				System.out.println("Listening for connections...");
 				
 				final Socket clientSocket = serverSocket.accept();
 
 				ClientConnection connection = new ClientConnection(this.clients.size(), clientSocket);
 				this.clients.add(connection);
+				
 				System.out.println("Connection added with id " + (this.clients.size() - 1));
 			}
 		} catch (IOException e) {
