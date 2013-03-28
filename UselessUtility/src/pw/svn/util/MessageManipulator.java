@@ -8,7 +8,7 @@ public class MessageManipulator {
 
 	private static MessageDigest digest;
 	static String[] emoticons = { "o_o", ":D", ":I", "xD", ":|", ":O", ":P",
-		"._.", ">.<", "(o_o)", ":L", ":c)", ">:/", "ó.ò" };
+		"._.", ">.<", "(o_o)", ":L", ":c)", ">:/", "ó.ò", ",,l,,>_>),l,," };
 	private static Random rand = new Random();
 	
 	public static void main(String[] args) {

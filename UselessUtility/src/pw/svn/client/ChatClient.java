@@ -76,7 +76,7 @@ public class ChatClient {
 			}
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			this.displayMessage("Could not connect to server.");
 		} finally {
 			
 			this.displayMessage("Shutting down."); // TODO internationalization
