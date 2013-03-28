@@ -66,7 +66,7 @@ public class ChatServer implements Runnable {
 		
 		public ClientConnection(int id, Socket socket) {
 			this.id = id;
-			this.name = ""; //TODO
+			this.name = NameGenerator.getNewName();
 			this.socket = socket;
 			new Thread(this).start();
 		}
@@ -96,14 +96,14 @@ public class ChatServer implements Runnable {
 			// TODO naming system?
 			// TODO translatable
 			
-			this.sendToAllf("Client #%d has entered the chat.", this.id);
+			this.sendToAllf("%s has entered the chat.", this.name);
 			
 			for (;;) {
 				String message = this.readMessage();
 				if (message == null)
 					clients.remove(this);
 				else
-					this.sendToAllf("%04d: %s", this.id, message);
+					this.sendToAllf("%s: %s", this.name, message);
 			}
 		}
 
