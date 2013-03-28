@@ -33,12 +33,10 @@ public class ChatClient {
 			this.serverConnection = new Socket(serverAddress, serverPort);
 			this.output = new ObjectOutputStream(this.serverConnection.getOutputStream());
 			this.input = new ObjectInputStream(this.serverConnection.getInputStream());
-			
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		this.initializeUI();
 	}
 	
@@ -48,13 +46,16 @@ public class ChatClient {
 		
 		this.ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.ui.add(new JScrollPane(new JTextArea()));
+		JTextArea textAreaContent = new JTextArea();
+		textAreaContent.setEditable(false);
+		this.ui.add(new JScrollPane(textAreaContent));
 		
 		final JTextField textFieldMessage = new JTextField();
 
 		textFieldMessage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sendMessage(textFieldMessage.getText());
+				textFieldMessage.setText("");
 			}
 		});
 
@@ -83,12 +84,11 @@ public class ChatClient {
 	}
 	
 	public void sendMessage(String message) {
-//		try {
-//			this.output.writeObject(message);
-//			this.output.flush();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		System.out.println(message);
+		try {
+			this.output.writeObject(message);
+			this.output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

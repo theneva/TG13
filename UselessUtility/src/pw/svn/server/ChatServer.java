@@ -62,7 +62,6 @@ public class ChatServer implements Runnable {
 		private ObjectOutputStream output;
 		private ObjectInputStream input;
 		
-
 		public ClientConnection(int id, Socket socket) {
 			this.id = id;
 			this.socket = socket;
@@ -94,6 +93,10 @@ public class ChatServer implements Runnable {
 			// TODO naming system?
 			// TODO translateable
 			this.sendMessagef("Client #%d has entered the chat.%n", this.id);
+		
+			for (;;) {
+				sendMessagef("%04d: %s", this.id, this.readMessage());
+			}
 		}
 
 		/**
