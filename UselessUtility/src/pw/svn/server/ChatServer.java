@@ -80,7 +80,7 @@ public class ChatServer implements Runnable {
 				this.output.flush();
 				this.input = new ObjectInputStream(this.socket.getInputStream());
 			} catch (IOException e){
-				e.printStackTrace() ;
+				e.printStackTrace();
 			}
 		}
 
@@ -90,11 +90,16 @@ public class ChatServer implements Runnable {
 		private void enterChat() {
 			// this.readMessage();
 			// TODO naming system?
-			// TODO translateable
-			this.sendMessagef("Client #%d has entered the chat.%n", this.id);
-		
+			// TODO translatable
+			
+			this.sendToAllf("Client #%d has entered the chat.", this.id);
+			
 			for (;;) {
-				sendMessagef("%04d: %s", this.id, this.readMessage());
+				String message = this.readMessage();
+				if (message == null)
+					clients.remove(this);
+				else
+					this.sendToAllf("%04d: %s", this.id, message);
 			}
 		}
 
@@ -103,7 +108,7 @@ public class ChatServer implements Runnable {
 		 */
 		private void leaveChat() {
 			// TODO translateable
-			this.sendMessagef("Client #%d has left the chat.%n", this.id);
+			this.sendMessagef("Client #%d has left the chat.", this.id);
 			clients.remove(this);
 		}
 		
@@ -117,7 +122,7 @@ public class ChatServer implements Runnable {
 			try {
 				data = (String) this.input.readObject();
 			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
+				clients.remove(this);
 			}
 
 			return data;
@@ -151,6 +156,23 @@ public class ChatServer implements Runnable {
 		 */
 		private void sendMessagef(String s, Object... o) {
 			this.sendMessage(String.format(s, o));
+		}
+		
+		/**
+		 * Sends a message to all connected clients.
+		 * @param message the message to send.
+		 */
+		private void sendToAll(String message) {
+			if (message == null) return;
+			
+			for (ClientConnection client : clients) {
+				client.sendMessage(message);
+			}
+		}
+
+		private void sendToAllf(String s, Object... o) {
+			String message = String.format(s, o);
+			this.sendToAll(message);
 		}
 		
 		public boolean equals(Object o) {

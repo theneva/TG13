@@ -24,19 +24,15 @@ public class ChatClient {
 	
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
+	
+	/** UI stuff */
 	private JFrame ui;
+	private JTextArea textAreaMessages;
 	
 	public ChatClient(String serverAddress, int serverPort) {
 
-		try {
-			this.serverConnection = new Socket(serverAddress, serverPort);
-			this.output = new ObjectOutputStream(this.serverConnection.getOutputStream());
-			this.input = new ObjectInputStream(this.serverConnection.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		this.initializeUI();
+		this.startClient(serverAddress, serverPort);
 	}
 	
 	private void initializeUI() {
@@ -45,15 +41,16 @@ public class ChatClient {
 		
 		this.ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JTextArea textAreaContent = new JTextArea();
-		textAreaContent.setEditable(false);
-		this.ui.add(new JScrollPane(textAreaContent));
+		this.textAreaMessages = new JTextArea();
+		this.textAreaMessages.setEditable(false);
+		
+		this.ui.add(new JScrollPane(this.textAreaMessages));
 
 		final JTextField textFieldMessage = new JTextField();
-
 		textFieldMessage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sendMessage(textFieldMessage.getText());
+				String message = textFieldMessage.getText();
+				sendMessage(message);
 				textFieldMessage.setText("");
 			}
 		});
@@ -65,21 +62,53 @@ public class ChatClient {
 		this.ui.setVisible(true);
 	}
 	
+	private void startClient(String serverAddress, int serverPort) {
+		
+		try {
+			this.serverConnection = new Socket(serverAddress, serverPort);
+			this.output = new ObjectOutputStream(this.serverConnection.getOutputStream());
+			this.input = new ObjectInputStream(this.serverConnection.getInputStream());
+			
+			for (;;) {
+				this.displayMessage(this.readMessage());
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			
+			this.displayMessage("Shutting down."); // TODO internationalization
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			System.exit(0);
+		}
+	}
+	
+	/**
+	 * Displays a message to the client.
+	 */
+	private void displayMessage(String message) {
+		this.textAreaMessages.append(message.concat(System.getProperty("line.separator")));
+	}
+	
 	/**
 	 * Reads a message (String) from the server.
 	 * @return the message from the server.
 	 */
 	private String readMessage() {
-		System.out.println("readMessage");
+		
 		String message = null;
 		
 		try {
 			message = (String) this.input.readObject();
-			System.out.println(message); // TODO
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return message;
 	}
 	
