@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -29,15 +30,20 @@ public class ChatClient {
 	private JFrame ui;
 	private JTextArea textAreaMessages;
 	
-	public ChatClient(String serverAddress, int serverPort) {
+	/** I18n */
+	private ResourceBundle messages;
+	
+	public ChatClient(String serverAddress, int serverPort, ResourceBundle messages) {
 
+		this.messages = messages;
+		
 		this.initializeUI();
 		this.startClient(serverAddress, serverPort);
 	}
 	
 	private void initializeUI() {
 
-		this.ui = new JFrame("Useless chat client");
+		this.ui = new JFrame(this.messages.getString("title"));
 		
 		this.ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -76,10 +82,10 @@ public class ChatClient {
 			}
 			
 		} catch (IOException e) {
-			this.displayMessage("Could not connect to server.");
+			this.displayMessage(this.messages.getString("connectionFailed"));
 		} finally {
 			
-			this.displayMessage("Shutting down."); // TODO internationalization
+			this.displayMessage(this.messages.getString("shuttingDown")); // TODO internationalization
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {

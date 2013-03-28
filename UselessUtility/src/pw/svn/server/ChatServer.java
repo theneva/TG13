@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import pw.svn.util.MessageManipulator;
 import pw.svn.util.NameGenerator;
@@ -20,10 +21,14 @@ public class ChatServer implements Runnable {
 	
 	private transient List<ClientConnection> clients;
 	private transient int port;
-
-	public ChatServer(String ip, int port) {
+	private transient ResourceBundle messages;
+	
+	public ChatServer(String ip, int port, ResourceBundle messages) {
 		this.clients = new ArrayList<ClientConnection>();
 		this.port = port;
+		
+		this.messages = messages;
+		
 		new Thread(this).start();
 	}
 
@@ -35,17 +40,17 @@ public class ChatServer implements Runnable {
 		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(this.port);
-
+			
 			for (;;) {
 
-				System.out.println("Listening for connections...");
+				System.out.println(this.messages.getString("listeningForConnections"));
 				
 				final Socket clientSocket = serverSocket.accept();
 
 				ClientConnection connection = new ClientConnection(this.clients.size(), clientSocket);
 				this.clients.add(connection);
 				
-				System.out.println("Connection added with id " + (this.clients.size() - 1));
+				System.out.printf("%s %d%n", this.messages.getString("connectionAdded"), this.clients.size() - 1);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,7 +80,6 @@ public class ChatServer implements Runnable {
 		public void run() {
 			this.initializeClientConnection();
 			this.enterChat();
-			this.leaveChat();
 		}
 		
 		private void initializeClientConnection() {
@@ -94,16 +98,14 @@ public class ChatServer implements Runnable {
 		 * Enters the chat and keeps the connection alive.
 		 */
 		private void enterChat() {
-			// this.readMessage();
-			// TODO naming system?
-			// TODO translatable
-			
-			this.sendToAllf("%s has entered the chat.", this.name);
+
+			this.sendToAllf("\t%s %s", this.name, messages.getString("hasEnteredChat"));
 			
 			for (;;) {
 				String message = this.readMessage();
-				if (message == null)
-					clients.remove(this);
+				if (message == null) {
+					this.leaveChat();
+				}
 				else
 					this.sendToAllf("%s: %s", this.name, MessageManipulator.manipulate(message));
 			}
@@ -113,9 +115,8 @@ public class ChatServer implements Runnable {
 		 * Notify the server that the client is leaving and remove it from the list.
 		 */
 		private void leaveChat() {
-			// TODO translatable
-			this.sendMessagef("%s has left the chat.", this.name);
 			clients.remove(this);
+			// TODO notify erry1
 		}
 		
 		/**
@@ -128,7 +129,7 @@ public class ChatServer implements Runnable {
 			try {
 				data = (String) this.input.readObject();
 			} catch (IOException | ClassNotFoundException e) {
-				clients.remove(this);
+				this.leaveChat();
 			}
 
 			return data;
@@ -145,24 +146,6 @@ public class ChatServer implements Runnable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-
-		/**
-		 * Sends a message ending with a line break to the client.
-		 * @param message the message.
-		 */
-		@SuppressWarnings("unused")
-		private void sendMessageln(String message) {
-			this.sendMessage(message.concat(System.getProperty("line.separator")));
-		}
-		
-		/**
-		 * Sends a formatted message to the client.
-		 * @param s the String as accepted by String.format(String, Object[]).
-		 * @param o the Object[] as accepted by String.format(String, Object[]).
-		 */
-		private void sendMessagef(String s, Object... o) {
-			this.sendMessage(String.format(s, o));
 		}
 		
 		/**
