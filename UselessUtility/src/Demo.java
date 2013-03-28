@@ -14,7 +14,7 @@ public class Demo {
 		final String serverAddress = "localhost";
 		final int serverPort = 8000;
 		
-//		ChatServer server = new ChatServer(serverAddress, serverPort);
+		ChatServer server = new ChatServer(serverAddress, serverPort);
 		
 		ChatClient client = new ChatClient(serverAddress, serverPort);
 	}

@@ -24,7 +24,7 @@ public class ChatClient {
 	
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	
+	private JTextArea txaMessages;
 	private JFrame ui;
 	
 	public ChatClient(String serverAddress, int serverPort) {
@@ -47,8 +47,8 @@ public class ChatClient {
 		this.ui = new JFrame("Useless chat client");
 		
 		this.ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		this.ui.add(new JScrollPane(new JTextArea()));
+		txaMessages = new JTextArea();
+		this.ui.add(new JScrollPane(txaMessages));
 		
 		final JTextField textFieldMessage = new JTextField();
 
@@ -70,11 +70,12 @@ public class ChatClient {
 	 * @return the message from the server.
 	 */
 	private String readMessage() {
-		
+		System.out.println("readMessage");
 		String message = null;
 		
 		try {
 			message = (String) this.input.readObject();
+			txaMessages.append(message);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
@@ -83,12 +84,13 @@ public class ChatClient {
 	}
 	
 	public void sendMessage(String message) {
-//		try {
-//			this.output.writeObject(message);
-//			this.output.flush();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		System.out.println(message);
+		System.out.println("sendMessage");
+		try {
+			this.output.writeObject(message);
+			this.output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(message);
 	}
 }

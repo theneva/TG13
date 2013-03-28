@@ -1,8 +1,6 @@
 package pw.svn.server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -29,134 +27,20 @@ public class ChatServer implements Runnable {
 	}
 	
 	private void startServer() {
-		
 		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(this.port);
-			
-			System.out.println("Server started.");
-			
+
 			for (;;) {
-				System.out.println("Listening for connections...");
-				
+
 				final Socket clientSocket = serverSocket.accept();
 
-				ClientConnection connection = new ClientConnection(this.clients.size(), clientSocket);
+				ClientConnection connection = new ClientConnection(clientSocket);
 				this.clients.add(connection);
-				System.out.println("Connection added with id " + (this.clients.size() - 1));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Represents the connection between the server and each user.
-	 * @author Theneva
-	 * @version 1.0
-	 */
-	private class ClientConnection implements Runnable {
-		
-		private int id;
-		private final Socket socket;
-		private ObjectOutputStream output;
-		private ObjectInputStream input;
-		
-
-		public ClientConnection(int id, Socket socket) {
-			this.id = id;
-			this.socket = socket;
-			new Thread(this).start();
-		}
-
-		public void run() {
-			this.initializeClientConnection();
-			this.enterChat();
-			this.leaveChat();
-		}
-		
-		private void initializeClientConnection() {
-			
-			try {
-				this.output = new ObjectOutputStream(this.socket.getOutputStream());
-				this.output.flush();
-				this.input = new ObjectInputStream(this.socket.getInputStream());
-			} catch (IOException e){
-				e.printStackTrace() ;
-			}
-		}
-
-		/**
-		 * Enters the chat and keeps the connection alive.
-		 */
-		private void enterChat() {
-			// this.readMessage();
-			// TODO naming system?
-			// TODO translateable
-			this.sendMessagef("Client #%d has entered the chat.%n", this.id);
-		}
-
-		/**
-		 * Notify the server that the client is leaving and remove it from the list.
-		 */
-		private void leaveChat() {
-			// TODO translateable
-			this.sendMessagef("Client #%d has left the chat.%n", this.id);
-			clients.remove(this);
-		}
-		
-		/**
-		 * Reads a message from the client.
-		 * @return the message.
-		 */
-		private String readMessage() {
-			String data = null;
-
-			try {
-				data = (String) this.input.readObject();
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			return data;
-		}
-
-		/**
-		 * Sends a message to the client.
-		 * @param message the message.
-		 */
-		private void sendMessage(String message) {
-			try {
-				this.output.writeObject(message);
-				this.output.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		/**
-		 * Sends a message ending with a line break to the client.
-		 * @param message the message.
-		 */
-		private void sendMessageln(String message) {
-			this.sendMessage(message.concat(System.getProperty("line.separator")));
-		}
-		
-		/**
-		 * Sends a formatted message to the client.
-		 * @param s the String as accepted by String.format(String, Object[]).
-		 * @param o the Object[] as accepted by String.format(String, Object[]).
-		 */
-		private void sendMessagef(String s, Object... o) {
-			this.sendMessage(String.format(s, o));
-		}
-		
-		public boolean equals(Object o) {
-			
-			if (!(o instanceof ClientConnection)) return false;
-			if (o == this) return true;
-			
-			return this.id == ((ClientConnection) o).id;
+		} finally {
 		}
 	}
 }
