@@ -20,6 +20,6 @@ public class ChatClientStarterWaidmann {
 		
 		ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
 		
-		new ChatClient("151.216.74.138", 8000, bundle);
+		new ChatClient("localhost", 8000, bundle);
 	}
 }
