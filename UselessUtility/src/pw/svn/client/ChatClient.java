@@ -93,6 +93,7 @@ public class ChatClient {
 	 */
 	private void displayMessage(String message) {
 		this.textAreaMessages.append(message.concat(System.getProperty("line.separator")));
+		this.textAreaMessages.setCaretPosition(this.textAreaMessages.getText().length());
 	}
 	
 	/**
@@ -114,7 +115,7 @@ public class ChatClient {
 	
 	public void sendMessage(String message) {
 		try {
-			this.output.writeObject(message);
+			this.output.writeObject(message.concat(" "));
 			this.output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
