@@ -73,6 +73,7 @@ public class ChatActivity extends Activity {
 			}
 		});
     }
+    
     /**
      * Asynchronous task to handle chat requests
      * @author Waidmann

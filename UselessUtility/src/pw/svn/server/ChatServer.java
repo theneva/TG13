@@ -105,9 +105,12 @@ public class ChatServer implements Runnable {
 				String message = this.readMessage();
 				if (message == null) {
 					this.leaveChat();
+					System.out.println("leave");
+					break;
 				}
 				else
 					this.sendToAllf("%s: %s", this.name, MessageManipulator.manipulate(message));
+				System.out.println("end");
 			}
 		}
 
@@ -116,7 +119,8 @@ public class ChatServer implements Runnable {
 		 */
 		private void leaveChat() {
 			clients.remove(this);
-			// TODO notify erry1
+			sendToAllf("\t%s %s", this.name, messages.getString("hasLeftChat"));
+			
 		}
 		
 		/**
@@ -129,7 +133,7 @@ public class ChatServer implements Runnable {
 			try {
 				data = (String) this.input.readObject();
 			} catch (IOException | ClassNotFoundException e) {
-				this.leaveChat();
+				//this.leaveChat();
 			}
 
 			return data;
