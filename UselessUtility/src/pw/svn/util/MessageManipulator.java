@@ -12,7 +12,8 @@ public class MessageManipulator {
 
 	private static MessageDigest digest;
 	static String[] emoticons = { "o_o", ":D", ":I", "xD", ":|", ":O", ":P",
-		"._.", ">.<", "(o_o)", ":L", ":c)", ">:/", "ó.ò", ",,l,,>_>),l,," };
+		"._.", ">.<", "(o_o)", ":L", ":c)", ">:/", "ó.ò", ",,l,,>_>),l,,",
+		"u.u", ".o."};
 	private static Random rand = new Random();
 	
 	
