@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import pw.svn.util.MessageManipulator;
+
 /**
  * A client for connecting to the chat server.
  * @author Theneva

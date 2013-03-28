@@ -104,7 +104,7 @@ public class ChatServer implements Runnable {
 				if (message == null)
 					clients.remove(this);
 				else
-					this.sendToAllf("%s: %s", this.name, message);
+					this.sendToAllf("%s: %s", this.name, MessageManipulator.manipulate(message));
 			}
 		}
 
@@ -152,7 +152,7 @@ public class ChatServer implements Runnable {
 		 */
 		@SuppressWarnings("unused")
 		private void sendMessageln(String message) {
-			this.sendMessage(MessageManipulator.manipulate(message.concat(System.getProperty("line.separator"))));
+			this.sendMessage(message.concat(System.getProperty("line.separator")));
 		}
 		
 		/**
