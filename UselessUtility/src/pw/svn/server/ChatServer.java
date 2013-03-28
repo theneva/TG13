@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import pw.svn.util.NameGenerator;
+
 /**
  * A useless chat server.
  * @author Theneva
@@ -56,13 +58,15 @@ public class ChatServer implements Runnable {
 	 */
 	private class ClientConnection implements Runnable {
 		
-		private int id;
+		private final int id;
+		private final String name;
 		private final Socket socket;
 		private ObjectOutputStream output;
 		private ObjectInputStream input;
 		
 		public ClientConnection(int id, Socket socket) {
 			this.id = id;
+			this.name = ""; //TODO
 			this.socket = socket;
 			new Thread(this).start();
 		}
@@ -107,8 +111,8 @@ public class ChatServer implements Runnable {
 		 * Notify the server that the client is leaving and remove it from the list.
 		 */
 		private void leaveChat() {
-			// TODO translateable
-			this.sendMessagef("Client #%d has left the chat.", this.id);
+			// TODO translatable
+			this.sendMessagef("%s has left the chat.", this.name);
 			clients.remove(this);
 		}
 		
