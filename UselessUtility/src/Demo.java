@@ -1,5 +1,6 @@
 
 
+import pw.svn.client.ChatClient;
 import pw.svn.server.ChatServer;
 
 /**
@@ -9,6 +10,12 @@ import pw.svn.server.ChatServer;
  */
 public class Demo {
 	public static void main(String[] args) {
-		new ChatServer("localhost", 8000);
+		
+		final String serverAddress = "localhost";
+		final int serverPort = 8000;
+		
+		ChatServer server = new ChatServer(serverAddress, serverPort);
+		
+		ChatClient client = new ChatClient(serverAddress, serverPort);
 	}
 }
