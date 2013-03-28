@@ -19,6 +19,6 @@ public class ServerConnectorMads {
 		
 		ResourceBundle messages = ResourceBundle.getBundle("MessageBundle", currentLocale);
 		
-		new ChatServer("localhost", 8000, messages);
+		new ChatServer("151.216.14.39", 8000, messages);
 	}
 }

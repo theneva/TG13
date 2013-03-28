@@ -1,5 +1,6 @@
 package pw.svn.client;
 
+import java.awt.Point;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -13,6 +14,6 @@ public class ChatClientStarterTheneva {
 		
 		ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
 		
-		new ChatClient("localhost", 8000, bundle);
+		new ChatClient("151.216.14.39", 8000, bundle, new Point(0, 0));
 	}
 }
