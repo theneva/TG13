@@ -45,6 +45,7 @@ public class ChatClient {
 		
 		this.textAreaMessages = new JTextArea();
 		this.textAreaMessages.setEditable(false);
+		this.textAreaMessages.setWrapStyleWord(true);
 		
 		this.ui.add(new JScrollPane(this.textAreaMessages));
 
