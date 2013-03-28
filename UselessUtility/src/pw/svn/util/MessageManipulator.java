@@ -31,6 +31,7 @@ public class MessageManipulator {
 				i++;
 			} else {
 				if (i == 0) {
+					tmp = tmp.replace((char) 0x4, (char)0x20).replace((char) 0x3, (char) 0x20);
 					sb.append(hash(tmp).trim());
 				}
 				done = true;
@@ -48,6 +49,8 @@ public class MessageManipulator {
 	 * @return sb.toString() - the bytes in the MessageDigest in hex
 	 */
 	public static String hash(String message){
+		if(message.length() == 0)
+			return message;
 		StringBuilder messageBuilder = new StringBuilder();
 		messageBuilder.append(message);
 		messageBuilder.append(getSalt());
