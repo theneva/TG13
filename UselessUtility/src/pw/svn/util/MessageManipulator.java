@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class MessageManipulator {
 
-	@SuppressWarnings("unused")
-	private String message;
 	private static MessageDigest digest;
 	static String[] emoticons = { "o_o", ":D", ":I", "xD", ":|", ":O", ":P",
 		"._.", ">.<", "(o_o)", ":L" };
