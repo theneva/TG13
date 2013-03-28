@@ -1,6 +1,7 @@
 package pw.svn.client;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -31,17 +32,23 @@ public class ChatClient implements Runnable {
 	private ObjectInputStream input;
 	
 	/** UI stuff */
+	public static final int DEFAULT_WIDTH = 480, DEFAULT_HEIGHT = 600;
+	
 	private JFrame ui;
 	private JTextArea textAreaMessages;
+	
+	private Point position;
 	
 	/** I18n */
 	private ResourceBundle messages;
 	
-	public ChatClient(String serverAddress, int serverPort, ResourceBundle messages) {
+	public ChatClient(String serverAddress, int serverPort, ResourceBundle messages, Point position) {
 
 		this.messages = messages;
 		this.serverAddress = serverAddress;
 		this.serverPort = serverPort;
+		
+		this.position = position;
 		
 		new Thread(this).start();
 	}
@@ -55,7 +62,7 @@ public class ChatClient implements Runnable {
 
 		this.ui = new JFrame(this.messages.getString("title"));
 		
-		this.ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.ui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		this.textAreaMessages = new JTextArea();
 		this.textAreaMessages.setEditable(false);
@@ -76,7 +83,8 @@ public class ChatClient implements Runnable {
 		this.ui.add(textFieldMessage, BorderLayout.SOUTH);
 		
 		this.ui.setLocationRelativeTo(null);
-		this.ui.setSize(600, 400);
+		this.ui.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		this.ui.setLocation(position);
 		this.ui.setVisible(true);
 	}
 	

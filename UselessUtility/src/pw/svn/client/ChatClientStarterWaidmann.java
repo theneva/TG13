@@ -1,5 +1,6 @@
 package pw.svn.client;
 
+import java.awt.Point;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,6 @@ public class ChatClientStarterWaidmann {
 		
 		ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", currentLocale);
 		
-		new ChatClient("151.216.74.138", 8000, bundle);
+		new ChatClient("151.216.14.38", 8000, bundle, new Point(0, 0));
 	}
 }

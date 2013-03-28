@@ -1,5 +1,6 @@
 
 
+import java.awt.Point;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,8 +35,8 @@ public class Demo {
 		try {
 			Thread.sleep(2000);
 			
-			for (int i = 0; i < 5; i++) {
-				new ChatClient(serverAddress, port, messages);
+			for (int i = 0; i < 3; i++) {
+				new ChatClient(serverAddress, port, messages, new Point(40 + ChatClient.DEFAULT_WIDTH * i, 40));
 				Thread.sleep(500);
 			}
 			

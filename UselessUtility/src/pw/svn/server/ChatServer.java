@@ -109,7 +109,6 @@ public class ChatServer implements Runnable {
 				}
 				else
 					this.sendToAllf("%s: %s", this.name, MessageManipulator.manipulate(message));
-				System.out.println("end");
 			}
 		}
 
