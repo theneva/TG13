@@ -8,5 +8,7 @@
     <string name="englishChoice">English</string>
     <string name="startChat">Start chat</string>
     <string name="title_activity_chat">Pointerless Chat</string>
+    <string name="btnSend">Send</string>
+    <string name="hint">Message</string>
 
 </resources>

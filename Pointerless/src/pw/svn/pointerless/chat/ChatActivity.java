@@ -7,16 +7,19 @@ import java.net.Socket;
 
 import pw.svn.pointerless.R;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 /**
  * 
@@ -36,6 +39,7 @@ public class ChatActivity extends Activity {
 	private TextView tvOutput;
 	private EditText etInput;
 	private LongOperation lo;
+	private ScrollView scroll;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class ChatActivity extends Activity {
     	btnSend = (Button) findViewById(R.id.btnSend);
     	tvOutput = (TextView) findViewById(R.id.textArea);
     	etInput = (EditText) findViewById(R.id.etInput);
+    	scroll = (ScrollView) findViewById(R.id.scroll);
+//    	tvOutput.setMovementMethod(new ScrollingMovementMethod());
     	btnSend.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
@@ -84,7 +90,7 @@ public class ChatActivity extends Activity {
 
 		@Override
 		protected Void doInBackground(String... params) {
-			this.startClient("151.216.74.138", 8000);
+			this.startClient("151.216.14.38", 8000);
 			
 			return null;
 		}
@@ -118,9 +124,9 @@ public class ChatActivity extends Activity {
 	    private void displayMessage(final String message) {
 	    	runOnUiThread(new Runnable() {
 	    	     public void run() {
-
+	    	    	 
 	    	    	 tvOutput.append(message.concat(System.getProperty("line.separator")));
-
+	    	    	 scroll.fullScroll(View.FOCUS_DOWN);
 	    	    }
 	    	});
 	    	

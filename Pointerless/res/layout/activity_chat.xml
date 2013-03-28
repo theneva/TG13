@@ -3,21 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+
+    
+
+<ScrollView
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:layout_above="@+id/btnSend"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/btnSend">
     <TextView
         android:id="@+id/textArea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        
         android:text="" />
-
+    </ScrollView>
     <EditText
         android:id="@+id/etInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:hint="@string/hint"
         android:ems="10" >
 
         <requestFocus />
@@ -29,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/editText1"
-        android:text="Button" />
+        android:layout_toRightOf="@+id/etInput"
+        android:text="@string/btnSend" />
 
 </RelativeLayout>
