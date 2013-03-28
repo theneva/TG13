@@ -13,13 +13,6 @@ public class Hasher {
 	private static MessageDigest digest;
 	
 	
-	public Hasher(){
-		
-		
-		
-		
-	}
-	
 	/**
 	 * Converts the bytes in the MessageDigest into hex
 	 * @return sb.toString() - the bytes in the MessageDigest in hex
