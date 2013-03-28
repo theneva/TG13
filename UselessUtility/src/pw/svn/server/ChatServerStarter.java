@@ -2,6 +2,6 @@ package pw.svn.server;
 
 public class ChatServerStarter {
 	public static void main(String[] args) {
-		new ChatServer("localhost", 8000);
+		new ChatServer("151.216.14.39", 8000);
 	}
 }

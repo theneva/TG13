@@ -2,6 +2,6 @@ package pw.svn.client;
 
 public class ChatClientStarter {
 	public static void main(String[] args) {
-		new ChatClient("localhost", 8000);
+		new ChatClient("151.216.14.39", 8000);
 	}
 }

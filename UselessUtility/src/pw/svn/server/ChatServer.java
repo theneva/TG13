@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import pw.svn.util.MessageManipulator;
 import pw.svn.util.NameGenerator;
 
 /**
@@ -149,8 +150,9 @@ public class ChatServer implements Runnable {
 		 * Sends a message ending with a line break to the client.
 		 * @param message the message.
 		 */
+		@SuppressWarnings("unused")
 		private void sendMessageln(String message) {
-			this.sendMessage(message.concat(System.getProperty("line.separator")));
+			this.sendMessage(MessageManipulator.manipulate(message.concat(System.getProperty("line.separator"))));
 		}
 		
 		/**
