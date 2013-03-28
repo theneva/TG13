@@ -20,20 +20,12 @@ import pw.svn.server.ChatServer;
  *
  */
 public class Demo {
-//	public static void main(String[] args) {
-//		
-//		if (args.length != 2) {
-//			new Demo("en", "US");
-//		} else {
-//			new Demo(args[0], args[1]);
-//		}
-//	}
-	
+
 	private JFrame frame;
 	private JButton btnAddClient, btnAddServer;
 	private JLabel lblClient, lblServer;
-	final String serverAddress = "localhost";
-	final int port;
+	private final String serverAddress = "localhost";
+	private final int port;
 	Locale currentLocale;
 	ResourceBundle messages;
 	public Demo(String language, String country) {
@@ -45,19 +37,7 @@ public class Demo {
 		
 		initGUI();
 		initListeners();
-//		new ChatServer(serverAddress, port, messages);
-//		
-//		try {
-//			Thread.sleep(2000);
-//			
-//			for (int i = 0; i < 3; i++) {
-//				new ChatClient(serverAddress, port, messages, new Point(40 + ChatClient.DEFAULT_WIDTH * i, 40));
-//				Thread.sleep(500);
-//			}
-//			
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+
 	}
 	public void initGUI(){
 		frame = new JFrame("Pointerless Admin");
